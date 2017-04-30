@@ -20,7 +20,7 @@ void print_vector(vector<vector<int>> arr, string a, string b)
 		if (i == 0)
 			cout << "  ";
 		else
-			cout << b[i-1] << " ";
+			cout << b[i - 1] << " ";
 		for (int j = 0; j < arr[i].size(); j++)
 		{
 			cout << arr[i][j] << " ";
@@ -35,47 +35,41 @@ int main()
 	string a;
 	string b;
 	int i;
-	//cout << "Please enter two strings" << endl;
+	cout << "Please enter two strings" << endl;
 	//a = readline();
 	//cin >> b;
 
-	a = "aqmrpqiwpfoiqiwef";
-	b = "afqefpqwiiasdfewf";
+	cin >> a;
+	cin >> b;
+	//a = "aqmrpqiwpfoiqiwef";
+	//b = "afqefpqwiiasdfewf";
 
 	int n = a.length();
 	int m = b.length();
 
 	vector<int> temp;
-	temp.resize(n+1);
+	temp.resize(n + 1);
 	vector<vector<int>> arr;
-	arr.resize(m+1);
+	arr.resize(m + 1);
 
-	for (int j = 0; j < n+1; j++)
-	{
+	for (int j = 0; j < n + 1; j++)
 		temp[j] = 0;
-	}
 
-	for (int i = 0; i < m+1; i++)
-	{
+	for (int i = 0; i < m + 1; i++)
 		arr[i] = temp;
-	}
 
 	print_vector(arr, a, b);
 
 	cout << endl;
 
-	for (int i = 1; i < m+1; i++)
+	for (int i = 1; i < m + 1; i++)
 	{
-		for (int j = 1; j < n+1; j++)
+		for (int j = 1; j < n + 1; j++)
 		{
-			if (a[j-1] == b[i-1])
-			{
+			if (a[j - 1] == b[i - 1])
 				arr[i][j] = arr[i - 1][j - 1] + 1;
-			}
 			else
-			{
 				arr[i][j] = (arr[i - 1][j] > arr[i][j - 1]) ? arr[i - 1][j] : arr[i][j - 1];
-			}
 		}
 	}
 
@@ -93,39 +87,31 @@ int main()
 		if (arr[i][j] == arr[i - 1][j] || arr[i][j] == arr[i][j - 1]) //the entry is different than those above or to the left
 		{
 			if (arr[i - 1][j] > arr[i][j - 1]) //the one above is greater than to the left
-			{
 				i -= 1;//move up
-			}
 			else
-			{
 				j -= 1;//move to the left
-			}
 		}
 		else if (arr[i][j] == arr[i - 1][j - 1] + 1) //so this one is different than the two above and to the left, and it's also
-			//different than the one diagonal from it, so it's what we want
+													 //different than the one diagonal from it, so it's what we want
 		{
-			//cout << "Gotta push " << a[j-1] << " at arr[" << i << "][" << j << "]" << endl;
-			letters.push(a[j-1]);
+			cout << "Gotta push " << a[j - 1] << " at arr[" << i << "][" << j << "]" << endl;
+			letters.push(a[j - 1]);
 			i -= 1;
 			j -= 1;
 		}
 		else
 		{
 			if (arr[i - 1][j] > arr[i][j - 1])
-			{
 				i -= 1;
-			}
 			else
-			{
 				j -= 1;
-			}
 		}
 	}
 
 	while (!letters.empty())
 	{
 		char temp = letters.top();
-		LCS+=temp;
+		LCS += temp;
 		letters.pop();
 	}
 	cout << "The LCS of " << a << " and " << b << " is " << LCS << endl;
